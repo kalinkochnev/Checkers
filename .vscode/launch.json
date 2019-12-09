@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.dakl.Main",
+            "projectName": "Checkers_5da2602a"
+        }
+    ]
+}
