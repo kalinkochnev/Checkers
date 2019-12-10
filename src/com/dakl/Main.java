@@ -5,8 +5,13 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+        //Add pieces moving diagonal
+        //Jump opponents
+        //Do double jumps
+        //Make kings that can move in any direction
         CheckerBoard game = CheckerBoard.freshBoard();
     }
+
 }
 
 class CheckerBoard {
@@ -18,7 +23,6 @@ class CheckerBoard {
         this.board = board;
         this.red = red;
         this.black = black;
-
     }
 
     static CheckerBoard freshBoard() {
@@ -115,7 +119,7 @@ class Team {
     public Piece[] getPieces(int start, int end) {
         Piece[] pcs = new Piece[end - start];
         for (int i = start; i < end; i++) {
-            pcs[i-start] = this.all_pieces.get(i);
+            pcs[i - start] = this.all_pieces.get(i);
         }
         return pcs;
     }
@@ -130,10 +134,9 @@ class Team {
 
             // Accounts for the piece offsets for each starting row
             int space_offset = 0;
-            if (row % 2 != 0) {
+            if (row % 2 == 0) {
                 space_offset = 1;
-            } 
-
+            }
 
             for (int col = space_offset; col < new_row.length; col += 2) {
                 new_row[col] = new Space(col, row, four_pcs[piece_count]);
@@ -146,6 +149,12 @@ class Team {
         return three_rows;
     }
 }
+// Get all the possible corners that the piece can move
+// Don't get corners that have a piece or are out of bounds
+//Display the options to the user to select
+// Include 4 max possible corners if king
+// 2 max possible if not king
+// Depending on the team the piece can only move in a direction
 
 class Piece {
     public int id;
@@ -154,10 +163,6 @@ class Piece {
 
     Piece(int id) {
         this.id = id;
-    }
-
-    void getSide() {
-
     }
 
     public boolean equals(Piece other_pc) {
