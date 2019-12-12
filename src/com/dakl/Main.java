@@ -52,6 +52,18 @@ class CheckerBoard {
         return all_pieces;
     }
 
+    boolean isPossible(Space end_result) {
+        return CheckerBoard.inBounds(end_result, board.length) && this.isEmpty(end_result);
+    }
+
+    //assuming that the space is possible
+    void movePiece(Piece pc, Space location) throws Exception {
+        if(this.isPossible(location)) {
+             throw new Exception("The space was already taken, did not check isPossible");
+        }
+        board[location.row][location.column].setPiece(pc);
+    }
+
     Space getLocation(Piece pc) {
         if (pc == null) {
             return null;
@@ -59,9 +71,9 @@ class CheckerBoard {
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                Space cur_space = board[row][col];
-                if (cur_space.pc != null && pc.equals(cur_space.pc)) {
-                    return cur_space;
+                Space pc_location = board[row][col];
+                if (pc_location.pc != null && pc.equals(pc_location.pc)) {
+                    return pc_location;
                 }
             }
         }
@@ -76,6 +88,15 @@ class CheckerBoard {
             }
         }
         return getLocation(found);
+    }
+
+    static boolean inBounds(Space space, int board_length) {
+        if (space.column < 0 || space.column > board_length - 1) {
+            if (space.row < 0 || space.row > board_length - 1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     boolean isEmpty(Space space) {
@@ -95,6 +116,36 @@ class Space {
         this.pc = piece;
     }
 
+    Space(int column, int row) {
+        this.column = column;
+        this.row = row;
+        this.pc = null;
+    }
+
+    Space[] getCorners(Space space) {
+        ArrayList<Space> validCorners = new ArrayList<>();
+        Space[] posCorners = new Space[]{
+                new Space(space.column - 1, space.row - 1),
+                new Space(space.column + 1, space.row - 1),
+                new Space(space.column - 1, space.row + 1),
+                new Space(space.column + 1, space.row + 1)
+        };
+        for (Space currentSpace : posCorners) {
+          if(CheckerBoard.inBounds(currentSpace,8)) {
+                validCorners.add(currentSpace);
+          }
+        }
+
+        Space[] correct_corners = new Space[validCorners.size()];
+        for (int i = 0; i < validCorners.size(); i++) {
+            correct_corners[i] = validCorners.get(i);
+        }
+        return correct_corners;
+    }
+
+    void setPiece(Piece pc) {
+        this.pc=pc;
+    }
 }
 
 class Team {
@@ -147,6 +198,10 @@ class Team {
         }
 
         return three_rows;
+    }
+
+    boolean onTeam(Piece pc) {
+
     }
 }
 // Get all the possible corners that the piece can move
