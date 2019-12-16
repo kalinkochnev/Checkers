@@ -47,8 +47,8 @@ class CheckerBoard {
 
     ArrayList<Piece> getAll() {
         ArrayList<Piece> all_pieces = new ArrayList<>();
-        all_pieces.addAll(red.all_pieces);
-        all_pieces.addAll(black.all_pieces);
+        all_pieces.addAll(red.roster);
+        all_pieces.addAll(black.roster);
         return all_pieces;
     }
 
@@ -61,7 +61,19 @@ class CheckerBoard {
         if(this.isPossible(location)) {
              throw new Exception("The space was already taken, did not check isPossible");
         }
+
         board[location.row][location.column].setPiece(pc);
+    }
+
+    Space[] possibleMoves(Space pc_loc) {
+        ArrayList<Space> possible_moves = new ArrayList<>();
+        for (Space space : pc_loc.getCorners()) {
+
+            // If the piece on the corner does not match the team of the current piece do...
+            if (!isOnSameTeam(space.pc, pc_loc.pc)) {
+
+            }
+        }
     }
 
     Space getLocation(Piece pc) {
@@ -99,6 +111,18 @@ class CheckerBoard {
         return true;
     }
 
+    Team getPieceTeam(Piece pc) {
+        if (Team.onTeam(red, pc)) {
+            return red;
+        } else {
+            return black;
+        }
+    }
+
+    boolean isOnSameTeam(Piece a, Piece b) {
+        return getPieceTeam(a).equals(getPieceTeam(b));
+    }
+
     boolean isEmpty(Space space) {
         return space.pc == null;
     }
@@ -122,7 +146,7 @@ class Space {
         this.pc = null;
     }
 
-    Space[] getCorners(Space space) {
+    static Space[] getCorners(Space space) {
         ArrayList<Space> validCorners = new ArrayList<>();
         Space[] posCorners = new Space[]{
                 new Space(space.column - 1, space.row - 1),
@@ -143,6 +167,10 @@ class Space {
         return correct_corners;
     }
 
+    Space[] getCorners() {
+        return getCorners(this);
+    }
+
     void setPiece(Piece pc) {
         this.pc=pc;
     }
@@ -150,7 +178,7 @@ class Space {
 
 class Team {
     String color;
-    ArrayList<Piece> all_pieces = new ArrayList<>();
+    ArrayList<Piece> roster = new ArrayList<>();
 
     Team(String color) {
         this.color = color;
@@ -158,19 +186,19 @@ class Team {
 
     Team(String color, ArrayList<Piece> all_pieces) {
         this.color = color;
-        this.all_pieces = all_pieces;
+        this.roster = all_pieces;
     }
 
     public void initTeam(int start_id, int end_id) {
         for (int id = start_id; id < end_id; id++) {
-            all_pieces.add(new Piece(id));
+            roster.add(new Piece(id));
         }
     }
 
     public Piece[] getPieces(int start, int end) {
         Piece[] pcs = new Piece[end - start];
         for (int i = start; i < end; i++) {
-            pcs[i - start] = this.all_pieces.get(i);
+            pcs[i - start] = this.roster.get(i);
         }
         return pcs;
     }
@@ -200,16 +228,14 @@ class Team {
         return three_rows;
     }
 
-    boolean onTeam(Piece pc) {
+    static boolean onTeam(Team team, Piece pc) {
+        return team.roster.contains(pc);
+    }
 
+    public boolean equals(Team other_team) {
+        return this.color.equals(other_team.color);
     }
 }
-// Get all the possible corners that the piece can move
-// Don't get corners that have a piece or are out of bounds
-//Display the options to the user to select
-// Include 4 max possible corners if king
-// 2 max possible if not king
-// Depending on the team the piece can only move in a direction
 
 class Piece {
     public int id;
