@@ -65,15 +65,34 @@ class CheckerBoard {
         board[location.row][location.column].setPiece(pc);
     }
 
-    Space[] possibleMoves(Space pc_loc) {
+
+    //for each possible corner
+        //if on opposite team
+            //get sets of corners
+                //For the set that contains original piece
+                    //check the other space is empty
+
+    Space[] possibleMoves(Space pc_loc, Space to_check) {
         ArrayList<Space> possible_moves = new ArrayList<>();
-        for (Space space : pc_loc.getCorners()) {
+        for (Space[] space_set : pc_loc.getCornerSet(pc_loc)) {
+            //Check if the arr contains the to_check
+            for (int curr_space = 0; curr_space < space_set.length; curr_space++) {
+                if (space_set[curr_space].pc.equals(to_check.pc)) {
+                    //Gets the opposite space
+                    if (curr_space == 0) {
+                        possible_moves.add(space_set[1]);
+                    } else {
+                        possible_moves.add(space_set[0]);
+                    }
 
-            // If the piece on the corner does not match the team of the current piece do...
-            if (!isOnSameTeam(space.pc, pc_loc.pc)) {
 
+
+
+                    break;
+                }
             }
         }
+        return null;
     }
 
     Space getLocation(Piece pc) {
@@ -150,9 +169,10 @@ class Space {
         ArrayList<Space> validCorners = new ArrayList<>();
         Space[] posCorners = new Space[]{
                 new Space(space.column - 1, space.row - 1),
+                new Space(space.column + 1, space.row + 1),
                 new Space(space.column + 1, space.row - 1),
                 new Space(space.column - 1, space.row + 1),
-                new Space(space.column + 1, space.row + 1)
+
         };
         for (Space currentSpace : posCorners) {
           if(CheckerBoard.inBounds(currentSpace,8)) {
@@ -165,6 +185,11 @@ class Space {
             correct_corners[i] = validCorners.get(i);
         }
         return correct_corners;
+    }
+
+    Space[][] getCornerSet(Space space) {
+        Space[] corners = getCorners(space);
+        return new Space[][] {{corners[0], corners[1]}, {corners[2], corners[3]}};
     }
 
     Space[] getCorners() {
