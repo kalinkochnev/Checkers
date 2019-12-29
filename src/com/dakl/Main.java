@@ -1,7 +1,6 @@
 package com.dakl;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -17,15 +16,12 @@ public class Main {
         CheckerBoard game = CheckerBoard.freshBoard();
         game.displayBoard();
 
-
-
         while (!game.isOver()) {
             System.out.println(game.current_turn.color + "'s are up!");
             System.out.println("Where would you like to move?");
             String[] user_input = input.nextLine().split(" ");
             //If the input is valid the piece is moved
             if (inputIsValid(user_input, game)) {
-
                 try {
                     Space piece_space = parseSpace(user_input[0]);
                     Space end_space = parseSpace(user_input[2]);
@@ -60,15 +56,24 @@ public class Main {
             return false;
         }
 
-        //Checks if there is a piece already present in the end space
+        //Checks if there is a piece of the same team already present in the end space
+
         if (valid_end_space.pc != null) {
-            System.out.println("There was a piece already in the end location, please try again!");
-            return false;
+            if (game.getPieceTeam(valid_pc_loc.pc).equals(game.getPieceTeam(valid_end_space.pc))) {
+                System.out.println("There was a piece already in the end location, please try again!");
+                return false;
+            }
         }
 
         //Checks if there is a piece already present in the end space
         if (valid_pc_loc.pc == null) {
             System.out.println("There is no piece in the given piece location, please try again!");
+            return false;
+        }
+
+        //Checks that the piece being moved is the same team as the current
+        if (!game.getPieceTeam(valid_pc_loc.pc).equals(game.current_turn)) {
+            System.out.println("You can't move that silly! You're not on the same team!");
             return false;
         }
 
@@ -86,11 +91,7 @@ public class Main {
             return false;
         }
 
-        //Checks that the piece being moved is the same team as the current
-        if (!game.getPieceTeam(valid_pc_loc.pc).equals(game.current_turn)) {
-            System.out.println("You can't move that silly! You're not on the same team!");
-            return false;
-        }
+
 
         //If it passes all the criteria
         return true;
@@ -111,6 +112,7 @@ class CheckerBoard {
     Team red;
     Team black;
     Team current_turn;
+    int num_turns = 1;
 
     CheckerBoard(Space[][] board, Team red, Team black) {
         this.board = board;
@@ -184,11 +186,17 @@ class CheckerBoard {
     void nextTurn() {
         Team[] teams = {red, black};
 
-        if (teams[0].equals(current_turn)) {
-            current_turn = teams[1];
-        } else if (teams[1].equals(current_turn)) {
-            current_turn = teams[0];
+        if (num_turns > 1) {
+            num_turns--;
+        } else {
+            if (teams[0].equals(current_turn)) {
+                current_turn = teams[1];
+            } else if (teams[1].equals(current_turn)) {
+                current_turn = teams[0];
+            }
         }
+
+
     }
 
     ArrayList<Piece> getAll() {
@@ -235,27 +243,44 @@ class CheckerBoard {
 
         //Checks whether or not the move made the piece move to the last row
         Team pc_team = getPieceTeam(pc);
-        if (pc_team.direction.equals("ascending") && end_loc.row == board.length-1) {
+        if (pc_team.direction.equals("ascending") && end_loc.row == board.length - 1) {
             board[end_loc.row][end_loc.column].pc.isKing = true;
         } else if (pc_team.direction.equals("descending") && end_loc.row == 0) {
             board[end_loc.row][end_loc.column].pc.isKing = true;
+        }
+
+        //checks if the location moved to was one of the jump locations
+        Map<Space, Space> jump_map = possibleJumps(pc_loc);
+        for (Map.Entry<Space, Space> jump_info: jump_map.entrySet()) {
+            if (jump_info.getKey().equals(end_loc)) {
+                //Updates the roster of the killed piece
+                Piece killed_pc = getBoardSpace(jump_info.getValue()).pc;
+                Team killed_pc_team = getPieceTeam(killed_pc);
+                killed_pc_team.killed.add(killed_pc);
+                killed_pc_team.roster.remove(killed_pc);
+
+                Space killed_space = getBoardSpace(jump_info.getValue());
+                board[killed_space.row][killed_space.column].pc = null;
+
+                if (possibleMoves(end_loc).length >= 1) {
+                    num_turns++;
+                }
+                break;
+            }
+
         }
 
     }
 
     Space[] possibleMoves(Space pc_loc) {
         ArrayList<Space> possible_moves = new ArrayList<>();
-
-        //Checks that the piece being moved has the same team as the current player
-
-
-        //Checks that the corners are empty
         for (Space poss_space : pc_loc.getCorners(pc_loc)) {
             //if the space is empty it adds it to possible moves
             try {
                 Space board_space = getBoardSpace(poss_space);
                 if (isEmpty(getBoardSpace(board_space))) {
-                    possible_moves.add(poss_space);
+                    possible_moves.add(board_space);
+                    continue;
                 }
             } catch (Exception e) {
                 System.out.println("Fatal error, space not in board");
@@ -267,11 +292,78 @@ class CheckerBoard {
             Space board_space = getBoardSpace(pc_loc);
             Team piece_team = getPieceTeam(board_space.pc);
             Space[] restricted_moves = Team.restrictMovement(board_space, CheckerBoard.ArrayListToArray(possible_moves), piece_team);
-            return restricted_moves;
+            possible_moves.clear();
+            Map<Space, Space> jump_map = possibleJumps(pc_loc);
+            Space[] pos_jumps = new Space[jump_map.keySet().size()];
+
+            int arr_index = 0;
+            for (Space key : jump_map.keySet()) {
+                pos_jumps[arr_index] = key;
+                arr_index++;
+            }
+
+            Space[] restricted_jumps = Team.restrictMovement(board_space, pos_jumps, piece_team);
+
+            for (Space move : restricted_jumps) {
+                possible_moves.add(move);
+            }
+
+            for (Space move : restricted_moves) {
+                possible_moves.add(move);
+            }
+
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Space does not exist on board!!!");
             return new Space[0];
         }
+
+        return CheckerBoard.ArrayListToArray(possible_moves);
+    }
+
+    public Map<Space, Space> possibleJumps(Space pc_loc) {
+        //For a given jump end location there is a space that it was jumped over and is stored here <end_loc, jumped_pc>
+        Map<Space, Space> jump_map = new HashMap<Space, Space>();
+
+        for (Space piece_to_jump : pc_loc.getCorners()) {
+
+
+            try {
+                //If the corner has a piece of the opposite team
+                if (getBoardSpace(piece_to_jump).pc == null) {
+                    continue;
+                }
+
+                //Checks that the pieces are on the opposite team
+                if (!getPieceTeam(getBoardSpace(pc_loc).pc).equals(getPieceTeam(getBoardSpace(piece_to_jump).pc))) {
+                    Space[][] opp_corners = piece_to_jump.getCornerSet();
+                    //Get the corner that has the current space
+                    for (Space[] corner_set : opp_corners) {
+                        for (int corner = 0; corner < 2; corner++) {
+                            if (corner_set[corner].equals(pc_loc)) {
+                                Space end_location;
+
+                                if (corner == 0) {
+                                    end_location = corner_set[1];
+                                } else {
+                                    end_location = corner_set[0];
+                                }
+
+                                if (inBounds(end_location, 8) && isEmpty(getBoardSpace(end_location))) {
+                                    jump_map.put(end_location, piece_to_jump);
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return jump_map;
     }
 
     Space getLocation(Piece pc) {
@@ -372,9 +464,16 @@ class Space {
         return correct_corners;
     }
 
-    Space[][] getCornerSet(Space space) {
-        Space[] corners = getCorners(space);
-        return new Space[][]{{corners[0], corners[1]}, {corners[2], corners[3]}};
+    Space[][] getCornerSet() {
+        Space[] posCorners = new Space[]{
+                new Space(this.column - 1, this.row - 1),
+                new Space(this.column + 1, this.row + 1),
+                new Space(this.column + 1, this.row - 1),
+                new Space(this.column - 1, this.row + 1),
+
+        };
+
+        return new Space[][]{{posCorners[0], posCorners[1]}, {posCorners[2], posCorners[3]}};
     }
 
     Space[] getCorners() {
@@ -387,6 +486,10 @@ class Space {
 
     public boolean equals(Space other) {
         return this.column == other.column && this.row == other.row;
+    }
+
+    public String toString() {
+        return "R" + (this.row+1) + " C" + (this.column+1);
     }
 }
 
@@ -459,6 +562,10 @@ class Team {
     public static Space[] restrictMovement(Space cur_loc, Space[] current_possibilities, Team piece_team) {
         ArrayList<Space> possible_moves = new ArrayList<>();
         String dir = piece_team.direction;
+
+        if (current_possibilities.length == 0) {
+            return new Space[0];
+        }
 
         //If the piece is a king there are no restrictions
         if (cur_loc.pc.isKing) {
