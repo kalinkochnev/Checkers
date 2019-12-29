@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b5bed31-44fa-4366-be15-341d17e8edc6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/dakl/Tests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/CheckerBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/CheckerBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Space.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Space.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Team.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Team.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dakl/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dakl/Main.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +43,14 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="com.dakl.CheckerBoard" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/com/dakl" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -156,7 +171,7 @@
       <workItem from="1577560418638" duration="7431000" />
       <workItem from="1577567868290" duration="29158000" />
       <workItem from="1577598005082" duration="341000" />
-      <workItem from="1577634747195" duration="13000" />
+      <workItem from="1577634747195" duration="9789000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1575658999060</created>
@@ -228,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577598316003</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added idea files">
+      <created>1577634793591</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1577634793591</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,38 +278,10 @@
     <MESSAGE value="added gui, user input processing and visual movement" />
     <MESSAGE value="Added team sides movement and turns for the game" />
     <MESSAGE value="Added crap" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added crap" />
+    <MESSAGE value="Added idea files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added idea files" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
-          <line>264</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
-          <line>252</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
-          <line>325</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
-          <line>291</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
-          <line>239</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="game.getPieceTeam(valid_pc_loc.pc)" language="JAVA" />
