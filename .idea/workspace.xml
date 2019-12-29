@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5b5bed31-44fa-4366-be15-341d17e8edc6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1UcbcylQBaMhqWJr9cJYTqjMxR7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.dakl.Main" />
+      <module name="Checkers" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CheckerboardTests.PiecesAreEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Checkers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dakl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dakl" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.CheckerboardTests" />
+      <option name="METHOD_NAME" value="PiecesAreEqual" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CheckerboardTests.createPiece" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Checkers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dakl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dakl" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.CheckerboardTests" />
+      <option name="METHOD_NAME" value="createPiece" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TeamTests.GetPieceIdsFromRoster" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Checkers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dakl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dakl" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.TeamTests" />
+      <option name="METHOD_NAME" value="GetPieceIdsFromRoster" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TeamTests.TestInit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Checkers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dakl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dakl" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.TeamTests" />
+      <option name="METHOD_NAME" value="TestInit" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.TeamTests.GetPieceIdsFromRoster" />
+        <item itemvalue="JUnit.TeamTests.TestInit" />
+        <item itemvalue="JUnit.CheckerboardTests.PiecesAreEqual" />
+        <item itemvalue="JUnit.CheckerboardTests.createPiece" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5b5bed31-44fa-4366-be15-341d17e8edc6" name="Default Changelist" comment="" />
+      <created>1575658913092</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575658913092</updated>
+      <workItem from="1575658916252" duration="1277000" />
+      <workItem from="1575921318667" duration="437000" />
+      <workItem from="1576005045307" duration="760000" />
+      <workItem from="1576006744449" duration="356000" />
+      <workItem from="1576175559202" duration="4406000" />
+      <workItem from="1576269952419" duration="28000" />
+      <workItem from="1576521292753" duration="4321000" />
+      <workItem from="1576691388308" duration="3269000" />
+      <workItem from="1576848415480" duration="4213000" />
+      <workItem from="1577560418638" duration="7431000" />
+      <workItem from="1577567868290" duration="29158000" />
+      <workItem from="1577598005082" duration="341000" />
+      <workItem from="1577634747195" duration="13000" />
+    </task>
+    <task id="LOCAL-00001" summary="initial commit">
+      <created>1575658999060</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1575658999060</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added piece movement instructions">
+      <created>1576007097026</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1576007097026</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added piece movement instructions">
+      <created>1576175628257</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1576175628257</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added the framework for movements">
+      <created>1576179909445</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1576179909445</updated>
+    </task>
+    <task id="LOCAL-00005" summary="code for comparing teams of pieces and started framework for jumping">
+      <created>1576525554932</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1576525554932</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added testing stuff">
+      <created>1576867700969</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1576867700969</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added testing stuff">
+      <created>1576870606762</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1576870606762</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added gui, user input processing and visual movement">
+      <created>1577573757550</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1577573757551</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added team sides movement and turns for the game">
+      <created>1577582407359</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1577582407359</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added crap">
+      <created>1577598316003</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1577598316003</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="added piece movement instructions" />
+    <MESSAGE value="added the framework for movements" />
+    <MESSAGE value="code for comparing teams of pieces and started framework for jumping" />
+    <MESSAGE value="Added testing stuff" />
+    <MESSAGE value="added gui, user input processing and visual movement" />
+    <MESSAGE value="Added team sides movement and turns for the game" />
+    <MESSAGE value="Added crap" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added crap" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
+          <line>264</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
+          <line>252</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
+          <line>325</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
+          <line>291</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
+          <line>239</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="game.getPieceTeam(valid_pc_loc.pc)" language="JAVA" />
+        <watch expression="restricted_jumps" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
