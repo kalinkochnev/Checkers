@@ -11,24 +11,28 @@ public class Main {
                 "- To refer to a space or piece use R[row number]C[column number] or vice versa, C[column number]R[row number]\n" +
                 "   ex: R1C2 or C2R1\n" +
                 "- To move a piece the arguments are \"   (Location of piece to move) to  (End location of piece)   \"\n" +
-                "   ex: R1C2 to R3C2\n");
-        //Add pieces moving diagonal
-        //Jump opponents
-        //Do double jumps
-        //Make kings that can move in any direction
+                "   ex: R1C2 to R3C2\n" +
+                "- Kings have a K attached to their piece symbol\n");
+
         CheckerBoard game = CheckerBoard.freshBoard();
         game.displayBoard();
 
+
+
         while (!game.isOver()) {
+            System.out.println(game.current_turn.color + "'s are up!");
             System.out.println("Where would you like to move?");
             String[] user_input = input.nextLine().split(" ");
+            //If the input is valid the piece is moved
             if (inputIsValid(user_input, game)) {
+
                 try {
                     Space piece_space = parseSpace(user_input[0]);
                     Space end_space = parseSpace(user_input[2]);
 
                     game.movePiece(game.getBoardSpace(piece_space).pc, game.getBoardSpace(end_space));
                     game.displayBoard();
+                    game.nextTurn();
                 } catch (Exception e) {
                     System.out.println("The piece movement is not possible!!! Fatal error!");
                 }
@@ -82,6 +86,12 @@ public class Main {
             return false;
         }
 
+        //Checks that the piece being moved is the same team as the current
+        if (!game.getPieceTeam(valid_pc_loc.pc).equals(game.current_turn)) {
+            System.out.println("You can't move that silly! You're not on the same team!");
+            return false;
+        }
+
         //If it passes all the criteria
         return true;
     }
@@ -89,25 +99,24 @@ public class Main {
     public static Space parseSpace(String piece2move) {
         int r_index = piece2move.indexOf("R");
         int c_index = piece2move.indexOf("C");
-        int space_row = Character.getNumericValue(piece2move.charAt(r_index+1))-1;
-        int space_col = Character.getNumericValue(piece2move.charAt(c_index+1))-1;
+        int space_row = Character.getNumericValue(piece2move.charAt(r_index + 1)) - 1;
+        int space_col = Character.getNumericValue(piece2move.charAt(c_index + 1)) - 1;
 
         return new Space(space_col, space_row);
     }
-
-
-
 }
 
 class CheckerBoard {
     Space[][] board;
     Team red;
     Team black;
+    Team current_turn;
 
     CheckerBoard(Space[][] board, Team red, Team black) {
         this.board = board;
         this.red = red;
         this.black = black;
+        this.current_turn = red;
     }
 
     static CheckerBoard freshBoard() {
@@ -119,8 +128,8 @@ class CheckerBoard {
         }
 
 
-        Team red = new Team("O");
-        Team black = new Team("X");
+        Team red = new Team("O", "ascending");
+        Team black = new Team("X", "descending");
 
         // Initalizes the piece variables in the checkerboard class
         red.initTeam(0, 12);
@@ -143,7 +152,7 @@ class CheckerBoard {
 
     void displayBoard() {
         for (int row = 0; row < board.length; row++) {
-            String row_str = "R" + String.valueOf(row+1) + " ";
+            String row_str = "R" + String.valueOf(row + 1) + " ";
 
             for (int space = 0; space < board.length; space++) {
                 Piece curr_piece = board[row][space].pc;
@@ -151,10 +160,15 @@ class CheckerBoard {
                 if (curr_piece == null) {
                     row_str += "|___";
                 } else {
-                    row_str += "|_" + getPieceTeam(curr_piece).color + "_";
+                    row_str += "|_" + getPieceTeam(curr_piece).color;
+                    if (curr_piece.isKing) {
+                        row_str += "K";
+                    } else {
+                        row_str += "_";
+                    }
                 }
 
-                if (space == board.length-1) {
+                if (space == board.length - 1) {
                     row_str += "|";
                 }
 
@@ -164,6 +178,16 @@ class CheckerBoard {
             if (row == board.length - 1) {
                 System.out.println("    C1  C2  C3  C4  C5  C6  C7  C8");
             }
+        }
+    }
+
+    void nextTurn() {
+        Team[] teams = {red, black};
+
+        if (teams[0].equals(current_turn)) {
+            current_turn = teams[1];
+        } else if (teams[1].equals(current_turn)) {
+            current_turn = teams[0];
         }
     }
 
@@ -182,8 +206,9 @@ class CheckerBoard {
         Space pc_loc = getLocation(curr);
         try {
             for (Space possible : possibleMoves(pc_loc)) {
-                if (end_result == possible) {
+                if (end_result.equals(possible)) {
                     notForwardMove = true;
+                    break;
                 }
             }
         } catch (Exception e) {
@@ -203,18 +228,28 @@ class CheckerBoard {
 
     //assuming that the space is possible
     void movePiece(Piece pc, Space end_loc) throws Exception {
-        if(this.isPossible(pc, end_loc)) {
-             throw new Exception("The space was already taken, did not check isPossible");
-        }
 
         Space pc_loc = this.getLocation(pc);
         board[pc_loc.row][pc_loc.column].pc = null;
         board[end_loc.row][end_loc.column].setPiece(pc);
 
+        //Checks whether or not the move made the piece move to the last row
+        Team pc_team = getPieceTeam(pc);
+        if (pc_team.direction.equals("ascending") && end_loc.row == board.length-1) {
+            board[end_loc.row][end_loc.column].pc.isKing = true;
+        } else if (pc_team.direction.equals("descending") && end_loc.row == 0) {
+            board[end_loc.row][end_loc.column].pc.isKing = true;
+        }
+
     }
 
     Space[] possibleMoves(Space pc_loc) {
         ArrayList<Space> possible_moves = new ArrayList<>();
+
+        //Checks that the piece being moved has the same team as the current player
+
+
+        //Checks that the corners are empty
         for (Space poss_space : pc_loc.getCorners(pc_loc)) {
             //if the space is empty it adds it to possible moves
             try {
@@ -225,20 +260,18 @@ class CheckerBoard {
             } catch (Exception e) {
                 System.out.println("Fatal error, space not in board");
             }
-
-/*            if (isEmpty(getBoardSpace())) {
-                possible_moves.add(poss_space);
-                //Gets the opposite space
-       *//*         if (curr_space == 0) {
-                    possible_moves.add(space_set[1]);
-                } else {
-                    possible_moves.add(space_set[0]);
-                }*//*
-
-            }*/
         }
 
-        return ArrayListToArray(possible_moves);
+        //Checks that the pieces are moving in the correct direction
+        try {
+            Space board_space = getBoardSpace(pc_loc);
+            Team piece_team = getPieceTeam(board_space.pc);
+            Space[] restricted_moves = Team.restrictMovement(board_space, CheckerBoard.ArrayListToArray(possible_moves), piece_team);
+            return restricted_moves;
+        } catch (Exception e) {
+            System.out.println("Space does not exist on board!!!");
+            return new Space[0];
+        }
     }
 
     Space getLocation(Piece pc) {
@@ -270,12 +303,12 @@ class CheckerBoard {
     }
 
     static boolean inBounds(Space space, int board_length) {
-        if (space.column < 0 || space.column > board_length - 1) {
-            if (space.row < 0 || space.row > board_length - 1) {
-                return false;
+        if (space.column >= 0 && space.column <= board_length - 1) {
+            if (space.row >= 0 && space.row <= board_length - 1) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     Team getPieceTeam(Piece pc) {
@@ -327,9 +360,9 @@ class Space {
 
         };
         for (Space currentSpace : posCorners) {
-          if(CheckerBoard.inBounds(currentSpace,8)) {
+            if (CheckerBoard.inBounds(currentSpace, 8)) {
                 validCorners.add(currentSpace);
-          }
+            }
         }
 
         Space[] correct_corners = new Space[validCorners.size()];
@@ -341,7 +374,7 @@ class Space {
 
     Space[][] getCornerSet(Space space) {
         Space[] corners = getCorners(space);
-        return new Space[][] {{corners[0], corners[1]}, {corners[2], corners[3]}};
+        return new Space[][]{{corners[0], corners[1]}, {corners[2], corners[3]}};
     }
 
     Space[] getCorners() {
@@ -349,7 +382,7 @@ class Space {
     }
 
     void setPiece(Piece pc) {
-        this.pc=pc;
+        this.pc = pc;
     }
 
     public boolean equals(Space other) {
@@ -361,14 +394,17 @@ class Team {
     String color;
     ArrayList<Piece> roster = new ArrayList<>();
     ArrayList<Piece> killed = new ArrayList<>();
+    String direction;
 
-    Team(String color) {
+    Team(String color, String direction) {
         this.color = color;
+        this.direction = direction;
     }
 
-    Team(String color, ArrayList<Piece> all_pieces) {
+    Team(String color, ArrayList<Piece> all_pieces, String direction) {
         this.color = color;
         this.roster = all_pieces;
+        this.direction = direction;
     }
 
     public void initTeam(int start_id, int end_id) {
@@ -418,6 +454,33 @@ class Team {
     public boolean equals(Team other_team) {
         return this.color.equals(other_team.color);
     }
+
+    //Make sure to pass the board space that has the piece attribute contained in it
+    public static Space[] restrictMovement(Space cur_loc, Space[] current_possibilities, Team piece_team) {
+        ArrayList<Space> possible_moves = new ArrayList<>();
+        String dir = piece_team.direction;
+
+        //If the piece is a king there are no restrictions
+        if (cur_loc.pc.isKing) {
+            return current_possibilities;
+        }
+
+        for (int space = 0; space < current_possibilities.length; space++) {
+            if (dir.equals("ascending")) {
+                //If the possible move row is greater than than the piece row it is a valid move
+                if (current_possibilities[space].row > cur_loc.row) {
+                    possible_moves.add(current_possibilities[space]);
+                }
+            } else if (dir.equals("descending")) {
+                //If the move row is less than the piece row it is a valid move for pieces going up the board
+                if (current_possibilities[space].row < cur_loc.row) {
+                    possible_moves.add(current_possibilities[space]);
+                }
+            }
+        }
+        return CheckerBoard.ArrayListToArray(possible_moves);
+    }
+
 }
 
 class Piece {
