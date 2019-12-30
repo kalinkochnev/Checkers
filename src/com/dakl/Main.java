@@ -52,6 +52,14 @@ public class Main {
 
             }
         }
+
+        String output = "Congratulations!!!";
+        if (game.red.roster.size() == 0) {
+            output += "The X team won!";
+        } else {
+            output += "The O team won!";
+        }
+        System.out.println(output);
     }
 
     static void threeByThree(Team center_team, Team[] surrounding, Space center, boolean isKing, CheckerBoard b) {

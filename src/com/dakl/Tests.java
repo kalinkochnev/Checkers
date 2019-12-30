@@ -359,6 +359,13 @@ public class Tests {
         assertFalse(b.abstain);
     }
 
+    @Test
+    void testGameEnd() {
+        assertFalse(b.isOver());
+        Piece a = b.red.roster.get(0);
+        b.red.roster.clear();
 
+        assertTrue(b.isOver());
+    }
 
 }
