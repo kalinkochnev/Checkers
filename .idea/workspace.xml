@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b5bed31-44fa-4366-be15-341d17e8edc6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/CheckerBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/CheckerBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Main.class" afterDir="false" />
@@ -81,7 +80,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.testRestrictedMoveMode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testDoubleJump" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Checkers" />
       <extension name="coverage">
         <pattern>
@@ -91,7 +90,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.dakl" />
       <option name="MAIN_CLASS_NAME" value="com.dakl.Tests" />
-      <option name="METHOD_NAME" value="testRestrictedMoveMode" />
+      <option name="METHOD_NAME" value="testDoubleJump" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -133,9 +132,9 @@
       <list>
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.Tests" />
+        <item itemvalue="JUnit.Tests.testDoubleJump" />
         <item itemvalue="JUnit.Tests.testRestrictedMoveModeN" />
         <item itemvalue="JUnit.Tests.testRestrictedMoveModeY" />
-        <item itemvalue="JUnit.Tests.testRestrictedMoveMode" />
       </list>
     </recent_temporary>
   </component>
@@ -252,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577634793591</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added wide range of test cases, doing integration testing by hand">
+      <created>1577679517929</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1577679517929</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,7 +287,8 @@
     <MESSAGE value="Added team sides movement and turns for the game" />
     <MESSAGE value="Added crap" />
     <MESSAGE value="Added idea files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added idea files" />
+    <MESSAGE value="Added wide range of test cases, doing integration testing by hand" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added wide range of test cases, doing integration testing by hand" />
   </component>
   <component name="WindowStateProjectService">
     <state x="453" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577663521882">
@@ -296,38 +303,46 @@
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
     <state x="840" y="449" width="299" height="210" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577663556416" />
-    <state width="925" height="527" key="GridCell.Tab.0.bottom" timestamp="1577678969313">
+    <state x="566" y="63" width="848" height="986" key="CommitChangelistDialog2" timestamp="1577679517851">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="925" height="527" key="GridCell.Tab.0.bottom/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
-    <state width="925" height="527" key="GridCell.Tab.0.center" timestamp="1577678969313">
+    <state x="566" y="63" width="848" height="986" key="CommitChangelistDialog2/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577679517851" />
+    <state width="589" height="618" key="DebuggerActiveHint" timestamp="1577680449766">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="925" height="527" key="GridCell.Tab.0.center/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
-    <state width="925" height="527" key="GridCell.Tab.0.left" timestamp="1577678969313">
+    <state width="589" height="618" key="DebuggerActiveHint/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577680449766" />
+    <state width="1850" height="231" key="GridCell.Tab.0.bottom" timestamp="1577681340327">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="925" height="527" key="GridCell.Tab.0.left/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
-    <state width="925" height="527" key="GridCell.Tab.0.right" timestamp="1577678969313">
+    <state width="1850" height="231" key="GridCell.Tab.0.bottom/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681340327" />
+    <state width="1850" height="231" key="GridCell.Tab.0.center" timestamp="1577681340327">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="925" height="527" key="GridCell.Tab.0.right/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
-    <state width="1850" height="373" key="GridCell.Tab.1.bottom" timestamp="1577678797298">
+    <state width="1850" height="231" key="GridCell.Tab.0.center/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681340327" />
+    <state width="1850" height="231" key="GridCell.Tab.0.left" timestamp="1577681340327">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="1850" height="373" key="GridCell.Tab.1.bottom/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797298" />
-    <state width="1850" height="373" key="GridCell.Tab.1.center" timestamp="1577678797298">
+    <state width="1850" height="231" key="GridCell.Tab.0.left/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681340327" />
+    <state width="1850" height="231" key="GridCell.Tab.0.right" timestamp="1577681340327">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="1850" height="373" key="GridCell.Tab.1.center/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797298" />
-    <state width="1850" height="373" key="GridCell.Tab.1.left" timestamp="1577678797297">
+    <state width="1850" height="231" key="GridCell.Tab.0.right/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681340327" />
+    <state width="1850" height="373" key="GridCell.Tab.1.bottom" timestamp="1577681255407">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="1850" height="373" key="GridCell.Tab.1.left/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797297" />
-    <state width="1850" height="373" key="GridCell.Tab.1.right" timestamp="1577678797298">
+    <state width="1850" height="373" key="GridCell.Tab.1.bottom/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681255407" />
+    <state width="1850" height="373" key="GridCell.Tab.1.center" timestamp="1577681255407">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
-    <state width="1850" height="373" key="GridCell.Tab.1.right/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797298" />
+    <state width="1850" height="373" key="GridCell.Tab.1.center/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681255407" />
+    <state width="1850" height="373" key="GridCell.Tab.1.left" timestamp="1577681255407">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1850" height="373" key="GridCell.Tab.1.left/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681255407" />
+    <state width="1850" height="373" key="GridCell.Tab.1.right" timestamp="1577681255407">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1850" height="373" key="GridCell.Tab.1.right/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577681255407" />
     <state x="635" y="129" width="719" height="855" key="find.popup" timestamp="1577671924726">
       <screen x="70" y="34" width="1850" height="1046" />
     </state>
@@ -342,8 +357,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
-          <line>87</line>
-          <option name="timeStamp" value="42" />
+          <line>669</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Tests.java</url>
+          <line>223</line>
+          <option name="timeStamp" value="53" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -351,6 +376,10 @@
       <configuration name="JUnit">
         <watch expression="b.getBoardSpace(Main.parseSpace(&quot;C4R5&quot;))" language="JAVA" />
         <watch expression="start_location" language="JAVA" />
+        <watch expression="board.num_turns" language="JAVA" />
+      </configuration>
+      <configuration name="Application">
+        <watch expression="board.num_turns" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

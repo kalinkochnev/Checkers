@@ -2,6 +2,8 @@ package com.dakl;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -14,6 +16,12 @@ public class Main {
                 "- Kings have a K attached to their piece symbol\n");
 
         CheckerBoard game = CheckerBoard.blankBoard();
+
+        Space start_loc = game.getBoardSpace(Main.parseSpace("C4R5"));
+        Team r = game.red;
+        Main.threeByThree(game.black, new Team[] {r, r, r, r}, start_loc, true, game);
+        game.getBoardSpace(("C5R2")).pc = game.red.roster.get(9);
+
         game.displayBoard();
 
         while (!game.isOver()) {
@@ -42,6 +50,33 @@ public class Main {
                     }
                 }
 
+            }
+        }
+    }
+
+    static void threeByThree(Team center_team, Team[] surrounding, Space center, boolean isKing, CheckerBoard b) {
+        Piece center_piece = center_team.roster.get(11);
+        if (isKing) {
+            center_piece.isKing = true;
+        }
+        b.getBoardSpace(center).pc = center_piece;
+
+        Space[] corners = b.getCorners(center);
+
+        int last_x_id = 0;
+        int last_o_id = 0;
+        for (int corner = 0; corner < 4; corner++) {
+            if (surrounding[corner] == null) {
+                b.getBoardSpace(corners[corner]).pc = null;
+                continue;
+            }
+
+            if (surrounding[corner].color.equals("X")) {
+                b.getBoardSpace(corners[corner]).pc = surrounding[corner].roster.get(last_x_id);
+                last_x_id++;
+            } else if (surrounding[corner].color.equals("O")){
+                b.getBoardSpace(corners[corner]).pc =surrounding[corner].roster.get(last_o_id);
+                last_o_id++;
             }
         }
     }
@@ -81,6 +116,9 @@ public class Main {
             return false;
         }
 
+        //Generated test move to be used for validation
+        Move test_move = new Move(game, unvalidated_pc_loc);
+
 
         //If the turn is greater than one, restrict the piece to move to the restricted piece move
         if (game.restricted_piece_move != null) {
@@ -100,11 +138,15 @@ public class Main {
                     System.out.println("There was something wrong with your input, please try again!");
                     return false;
                 }
+            } else {
+                if (!test_move.possible_jumps.containsValue(unvalidated_end_space)) {
+                    System.out.println("You can't jump there, you must double jump.");
+                    return false;
+                }
             }
         }
 
         //Checks if the end location is a possible move
-        Move test_move = new Move(game, unvalidated_pc_loc);
         if (!test_move.isPossible(unvalidated_end_space)) {
             System.out.println("The space you want to move to is not valid! Please try again!");
             return false;
@@ -364,6 +406,7 @@ class CheckerBoard {
         } else if (teams[1].equals(current_turn)) {
             current_turn = teams[0];
         }
+        num_turns = 1;
     }
 
     public static Space[] ArrayListToArray(ArrayList<Space> list) {
@@ -625,7 +668,7 @@ class Move {
             Move next = new Move(board, board.getBoardSpace(end_loc));
 
             if (next.possible_jumps.size() >= 1) {
-                board.num_turns++;
+                board.num_turns+=1;
                 board.restricted_piece_move = start_location.pc;
             } else {
                 board.restricted_piece_move = null;
