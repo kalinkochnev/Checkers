@@ -13,39 +13,52 @@ public class Main {
                 "   ex: R1C2 to R3C2\n" +
                 "- Kings have a K attached to their piece symbol\n");
 
-        CheckerBoard game = CheckerBoard.freshBoard();
+        CheckerBoard game = CheckerBoard.blankBoard();
         game.displayBoard();
 
         while (!game.isOver()) {
             System.out.println(game.current_turn.color + "'s are up!");
             System.out.println("Where would you like to move?");
-            String[] user_input = input.nextLine().split(" ");
+
+            String user_input = input.nextLine();
             //If the input is valid the piece is moved
-            if (inputIsValid(user_input, game)) {
+            if (inputIsValid(game, user_input)) {
                 //If the user decides to skip their turn
                 if (game.abstain) {
                     game.abstain = false;
                     game.nextTurn();
+                    continue;
                 } else {
-                    Space piece_space = game.getBoardSpace(parseSpace(user_input[0]));
-                    Space end_space = game.getBoardSpace(parseSpace(user_input[2]));
+                    Space piece_space = game.validated_pc_space;
+                    Space end_space = game.validated_end_space;
 
                     Move move_to = new Move(game, piece_space);
-                    move_to.movePiece(end_space);
+                    move_to.movePieceTo(end_space);
                     game = move_to.getBoard();
 
                     game.displayBoard();
-                    game.nextTurn();
+                    if (game.num_turns != 1) {
+                        game.nextTurn();
+                    }
                 }
 
             }
         }
     }
 
-    public static boolean inputIsValid(String[] command, CheckerBoard game) {
+    public static boolean inputIsValid(CheckerBoard game, String input) {
+        String[] command = input.split(" ");
 
-        Space unvalidated_pc_loc = parseSpace(command[0]);
-        Space unvalidated_end_space = parseSpace(command[2]);
+        Space unvalidated_pc_loc = null;
+        Space unvalidated_end_space = null;
+
+        try {
+            unvalidated_pc_loc = parseSpace(command[0]);
+            unvalidated_end_space = parseSpace(command[2]);
+        } catch (Exception a) {
+            System.out.println(a.getMessage() + ". The input you entered is not parsable, please try again!");
+            return false;
+        }
 
         // Checks if the space is in bounds
         if (!(game.inBounds(unvalidated_pc_loc) && game.inBounds(unvalidated_end_space))) {
@@ -70,31 +83,65 @@ public class Main {
 
 
         //If the turn is greater than one, restrict the piece to move to the restricted piece move
-        if (game.num_turns > 1) {
+        if (game.restricted_piece_move != null) {
             if (!unvalidated_pc_loc.pc.equals(game.restricted_piece_move)) {
-                System.out.println("You have the opportunity to make a double jump with piece " + game.getLocation(game.restricted_piece_move).toString() +
-                        ". You may choose to make another jump or skip your turn." + "Would you like to skip? Y/N");
-                Scanner input = new Scanner(System.in);
-                String user_input = input.nextLine();
-                if (user_input.toLowerCase().equals("Y")) {
-                    game.abstain = true;
-                } else {
+                System.out.println("You have the opportunity to make a double jump with piece" + game.getLocation(game.restricted_piece_move).toString() +
+                        "!\n You may choose to make another jump or skip your turn." + "Would you like to skip? Y/N");
+                try {
+                    Scanner scanner = new Scanner(System.in);
+                    String user_input = scanner.next();
+                    if (user_input.toLowerCase().equals("y")) {
+                        game.abstain = true;
+                        game.restricted_piece_move = null;
+                    } else {
+                        return false;
+                    }
+                } catch (InputMismatchException a) {
+                    System.out.println("There was something wrong with your input, please try again!");
                     return false;
                 }
             }
         }
 
+        //Checks if the end location is a possible move
+        Move test_move = new Move(game, unvalidated_pc_loc);
+        if (!test_move.isPossible(unvalidated_end_space)) {
+            System.out.println("The space you want to move to is not valid! Please try again!");
+            return false;
+        }
+
+        game.validated_end_space = unvalidated_end_space;
+        game.validated_pc_space = unvalidated_pc_loc;
+
         //If it passes all the criteria
         return true;
     }
 
-    public static Space parseSpace(String piece2move) {
-        int r_index = piece2move.indexOf("R");
-        int c_index = piece2move.indexOf("C");
-        int space_row = Character.getNumericValue(piece2move.charAt(r_index + 1)) - 1;
-        int space_col = Character.getNumericValue(piece2move.charAt(c_index + 1)) - 1;
+    public static Space parseSpace(String piece_str) {
+        int r_index = piece_str.indexOf("R");
+        int c_index = piece_str.indexOf("C");
+
+        int space_col;
+        int space_row;
+
+        String first = "";
+        if (c_index < r_index) {
+            space_row = Integer.parseInt(piece_str.substring(r_index + 1)) - 1;
+            space_col = Integer.parseInt(piece_str.substring(c_index + 1, r_index)) - 1;
+        } else {
+            space_row = Integer.parseInt(piece_str.substring(r_index + 1, c_index)) - 1;
+            space_col = Integer.parseInt(piece_str.substring(c_index + 1)) - 1;
+        }
 
         return new Space(space_col, space_row);
+    }
+
+    public static Space[] parseSpace(String[] piece2move) {
+        Space[] spaces = new Space[piece2move.length];
+        for (int space = 0; space < piece2move.length; space++) {
+            spaces[space] = parseSpace(piece2move[space]);
+        }
+        return spaces;
     }
 }
 
@@ -102,6 +149,9 @@ class CheckerBoard {
     Space[][] board;
     Team red;
     Team black;
+
+    Space validated_pc_space;
+    Space validated_end_space;
 
     Team current_turn;
     int num_turns = 1;
@@ -114,6 +164,7 @@ class CheckerBoard {
         this.black = black;
         this.current_turn = red;
     }
+
     static CheckerBoard freshBoard() {
         Space[][] board = new Space[8][8];
         for (int row = 0; row < board.length; row++) {
@@ -134,6 +185,26 @@ class CheckerBoard {
         Space[][] board_stage1 = Team.genSide(red, board, 0, 3);
         Space[][] new_board = Team.genSide(black, board_stage1, 5, 8);
 
+        return new CheckerBoard(board, red, black);
+    }
+
+    static CheckerBoard blankBoard() {
+        Space[][] board = new Space[8][8];
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board.length; col++) {
+                board[row][col] = new Space(col, row);
+            }
+        }
+
+
+        Team red = new Team("O", "ascending");
+        Team black = new Team("X", "descending");
+
+        // Initalizes the piece variables in the checkerboard class
+        red.initTeam(0, 12);
+        black.initTeam(12, 24);
+
+        //Sets the first and last the rows to generated ones
         return new CheckerBoard(board, red, black);
     }
 
@@ -158,12 +229,13 @@ class CheckerBoard {
         }
         return correct_corners;
     }
+
     Space[][] getCornerSet(Space space) {
         Space[] posCorners = new Space[]{
-            new Space(space.column - 1, space.row - 1),
-            new Space(space.column + 1, space.row + 1),
-            new Space(space.column + 1, space.row - 1),
-            new Space(space.column - 1, space.row + 1),
+                new Space(space.column - 1, space.row - 1),
+                new Space(space.column + 1, space.row + 1),
+                new Space(space.column + 1, space.row - 1),
+                new Space(space.column - 1, space.row + 1),
         };
 
         return new Space[][]{{posCorners[0], posCorners[1]}, {posCorners[2], posCorners[3]}};
@@ -199,6 +271,7 @@ class CheckerBoard {
             }
         }
     }
+
     boolean isOver() {
         return red.roster.size() == 0 || black.roster.size() == 0;
     }
@@ -220,6 +293,7 @@ class CheckerBoard {
         }
         return null;
     }
+
     Space getLocation(int piece_id) {
         Piece found = null;
         for (Piece pc : getAll()) {
@@ -229,14 +303,22 @@ class CheckerBoard {
         }
         return getLocation(found);
     }
+
     ArrayList<Piece> getAll() {
         ArrayList<Piece> all_pieces = new ArrayList<>();
         all_pieces.addAll(red.roster);
         all_pieces.addAll(black.roster);
         return all_pieces;
     }
+
     Space getBoardSpace(Space space) {
         return board[space.row][space.column];
+    }
+
+    Space getBoardSpace(String space) {
+        Space space_obj = Main.parseSpace(space);
+        return board[space_obj.row][space_obj.column];
+
     }
 
 
@@ -248,6 +330,7 @@ class CheckerBoard {
         }
         return false;
     }
+
     boolean inBounds(Space[] spaces) {
         for (Space space : spaces) {
             if (!inBounds(space)) {
@@ -269,23 +352,18 @@ class CheckerBoard {
             return black;
         }
     }
+
     boolean isOnSameTeam(Piece a, Piece b) {
         return getPieceTeam(a).equals(getPieceTeam(b));
     }
+
     void nextTurn() {
         Team[] teams = {red, black};
-
-        if (num_turns > 1) {
-            num_turns--;
-        } else {
-            if (teams[0].equals(current_turn)) {
-                current_turn = teams[1];
-            } else if (teams[1].equals(current_turn)) {
-                current_turn = teams[0];
-            }
+        if (teams[0].equals(current_turn)) {
+            current_turn = teams[1];
+        } else if (teams[1].equals(current_turn)) {
+            current_turn = teams[0];
         }
-
-
     }
 
     public static Space[] ArrayListToArray(ArrayList<Space> list) {
@@ -307,6 +385,7 @@ class Space {
         this.row = row;
         this.pc = piece;
     }
+
     Space(int column, int row) {
         this.column = column;
         this.row = row;
@@ -323,8 +402,9 @@ class Space {
     public boolean equals(Space other) {
         return this.column == other.column && this.row == other.row;
     }
+
     public String toString() {
-        return "R" + (this.row+1) + " C" + (this.column+1);
+        return "R" + (this.row + 1) + " C" + (this.column + 1);
     }
 }
 
@@ -338,6 +418,7 @@ class Team {
         this.color = color;
         this.direction = direction;
     }
+
     Team(String color, ArrayList<Piece> all_pieces, String direction) {
         this.color = color;
         this.roster = all_pieces;
@@ -349,6 +430,7 @@ class Team {
             roster.add(new Piece(id));
         }
     }
+
     static boolean onTeam(Team team, Piece pc) {
         return team.roster.contains(pc);
     }
@@ -365,6 +447,7 @@ class Team {
         }
         return pcs;
     }
+
     public static Space[][] genSide(Team team, Space[][] board, int row_start, int row_end) {
         int modified_row_count = 0;
 
@@ -394,12 +477,19 @@ class Team {
     public boolean equals(Team other_team) {
         return this.color.equals(other_team.color);
     }
+
+    public String toString() {
+        if (color.equals("X")) {
+            return "Team Black";
+        } else {
+            return "Team Red";
+        }
+    }
 }
 
 class Piece {
     public int id;
     boolean isKing = false;
-    boolean killed = false;
 
     Piece(int id) {
         this.id = id;
@@ -423,6 +513,7 @@ class Move {
         possibleJumps();
     }
 
+
     CheckerBoard getBoard() {
         return board;
     }
@@ -433,9 +524,14 @@ class Move {
 
     boolean arePossibleMoves() {
         //If the piece is restricted
-        return possible_jumps.size() > 1 || possible_slides.size() > 1;
+        return possible_jumps.size() >= 1 || possible_slides.size() >= 1;
 
     }
+
+    int numPossibleMoves() {
+        return possible_jumps.size() + possible_slides.size();
+    }
+
 
     Team getStartLocTeam() {
         return board.getPieceTeam(start_location.pc);
@@ -447,7 +543,7 @@ class Move {
         for (Space possible_space : board.getCorners(start_location)) {
             //if the space is empty it adds it to possible moves
             Space board_space = board.getBoardSpace(possible_space);
-            if (board.isEmpty(possible_space)) {
+            if (board.isEmpty(board_space)) {
                 unchecked_moves.add(board_space);
             }
         }
@@ -460,8 +556,6 @@ class Move {
 
     void possibleJumps() {
         //For a given jump end location there is a space that it was jumped over and is stored here <end_loc, jumped_pc>
-        Map<Space, Space> jump_map = new HashMap<Space, Space>();
-
         //Checks all corners that are not empty and and have a piece of the opposite team
         for (Space piece_to_jump : board.getCorners(start_location)) {
             Space space_jumped_on_board = board.getBoardSpace(piece_to_jump);
@@ -469,7 +563,7 @@ class Move {
             if (!board.isEmpty(space_jumped_on_board) && !board.isOnSameTeam(start_location.pc, space_jumped_on_board.pc)) {
                 //Get the corner sets, find the set that contains the start location
                 Space[][] opp_corners = board.getCornerSet(space_jumped_on_board);
-                for(Space[] corner_set : opp_corners) {
+                for (Space[] corner_set : opp_corners) {
                     //Check that all corners are in bounds
                     if (board.inBounds(corner_set)) {
                         //If the set contains the start location
@@ -477,16 +571,20 @@ class Move {
                             Space corner_on_board = board.getBoardSpace(corner_set[corner]);
                             if (corner_on_board.equals(start_location)) {
 
-                                Space opp_corner;
+                                Space final_jump_loc;
                                 if (corner == 0) {
-                                    opp_corner = board.getBoardSpace(corner_set[1]);
+                                    final_jump_loc = board.getBoardSpace(corner_set[1]);
                                 } else {
-                                    opp_corner = board.getBoardSpace(corner_set[0]);
+                                    final_jump_loc = board.getBoardSpace(corner_set[0]);
                                 }
 
                                 //Check the opposite corner is empty
-                                if (board.isEmpty(opp_corner)) {
-                                    jump_map.put(opp_corner, space_jumped_on_board);
+                                if (board.isEmpty(final_jump_loc)) {
+                                    //Restrict the move to the proper direction
+                                    Piece to_move = start_location.pc;
+                                    if (restrictMove(to_move, final_jump_loc) != null) {
+                                        possible_jumps.put(space_jumped_on_board, final_jump_loc);
+                                    }
                                 }
                             }
                         }
@@ -497,29 +595,22 @@ class Move {
     }
 
     //assuming that the space is possible
-    void movePiece(Space end_loc) {
-        //Sets the initial loc piece to empty, sets the end location to the new piece
-        board.board[start_location.row][start_location.column].pc = null;
-        board.board[end_loc.row][end_loc.column].setPiece(start_location.pc);
-
-        //If a piece moves to the opposite side of the board make it a king
-        Team piece_team = getStartLocTeam();
-        if (piece_team.direction.equals("ascending") && end_loc.row == board.board.length - 1) {
-            board.board[end_loc.row][end_loc.column].pc.isKing = true;
-        } else if (piece_team.direction.equals("descending") && end_loc.row == 0) {
-            board.board[end_loc.row][end_loc.column].pc.isKing = true;
-        }
-
+    void movePieceTo(Space end_loc) {
+        board.num_turns--;
         Space end_loc_on_board = board.getBoardSpace(end_loc);
 
+        //Sets the initial loc piece to empty, sets the end location to the new piece
+        board.board[end_loc.row][end_loc.column].setPiece(start_location.pc);
+
         //If the jump possibilities are greater than 0
-        if (possible_jumps.containsKey(end_loc_on_board)) {
+        if (possible_jumps.containsValue(end_loc_on_board)) {
 
             //Gets the space that was jumped
             Space jumped_space = null;
             for (Map.Entry<Space, Space> jump_set : possible_jumps.entrySet()) {
                 if (jump_set.getValue().equals(end_loc)) {
                     jumped_space = jump_set.getKey();
+                    break;
                 }
             }
 
@@ -531,13 +622,28 @@ class Move {
             board.board[jumped_space.row][jumped_space.column].pc = null;
 
             //If another move is possible add another turn but restrict the possible piece to move to be the same one
-            Move next = new Move(board, end_loc);
-            if (next.arePossibleMoves()) {
+            Move next = new Move(board, board.getBoardSpace(end_loc));
+
+            if (next.possible_jumps.size() >= 1) {
                 board.num_turns++;
                 board.restricted_piece_move = start_location.pc;
+            } else {
+                board.restricted_piece_move = null;
             }
 
         }
+
+
+        //If a piece moves to the opposite side of the board make it a king
+        Team piece_team = board.getPieceTeam(end_loc_on_board.pc);
+        if (piece_team.direction.equals("ascending") && end_loc.row == board.board.length - 1) {
+            board.board[end_loc.row][end_loc.column].pc.isKing = true;
+        } else if (piece_team.direction.equals("descending") && end_loc.row == 0) {
+            board.board[end_loc.row][end_loc.column].pc.isKing = true;
+        }
+
+        //Sets the original spot to null
+        board.board[start_location.row][start_location.column].pc = null;
 
     }
 
@@ -554,6 +660,7 @@ class Move {
         }
         return possible_moves;
     }
+
     public Space restrictMove(Piece piece, Space end_move) {
         String direction = board.getPieceTeam(piece).direction;
         Space piece_loc = board.getLocation(piece);
@@ -577,5 +684,6 @@ class Move {
 
         return null;
     }
+
 
 }

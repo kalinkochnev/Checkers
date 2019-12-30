@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b5bed31-44fa-4366-be15-341d17e8edc6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/dakl/Tests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/CheckerBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/CheckerBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Main.class" afterDir="false" />
@@ -10,8 +10,8 @@
       <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Space.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Space.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Team.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Checkers/com/dakl/Team.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dakl/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dakl/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dakl/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dakl/Tests.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,30 +52,21 @@
       <recent name="$PROJECT_DIR$/src/com/dakl" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.dakl.Main" />
       <module name="Checkers" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dakl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CheckerboardTests.PiecesAreEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Checkers" />
       <extension name="coverage">
         <pattern>
@@ -84,14 +75,29 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dakl" />
-      <option name="MAIN_CLASS_NAME" value="com.dakl.CheckerboardTests" />
-      <option name="METHOD_NAME" value="PiecesAreEqual" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.Tests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tests.testRestrictedMoveMode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Checkers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dakl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dakl" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.Tests" />
+      <option name="METHOD_NAME" value="testRestrictedMoveMode" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CheckerboardTests.createPiece" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testRestrictedMoveModeN" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Checkers" />
       <extension name="coverage">
         <pattern>
@@ -100,14 +106,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dakl" />
-      <option name="MAIN_CLASS_NAME" value="com.dakl.CheckerboardTests" />
-      <option name="METHOD_NAME" value="createPiece" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.Tests" />
+      <option name="METHOD_NAME" value="testRestrictedMoveModeN" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TeamTests.GetPieceIdsFromRoster" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testRestrictedMoveModeY" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Checkers" />
       <extension name="coverage">
         <pattern>
@@ -116,24 +122,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dakl" />
-      <option name="MAIN_CLASS_NAME" value="com.dakl.TeamTests" />
-      <option name="METHOD_NAME" value="GetPieceIdsFromRoster" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TeamTests.TestInit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Checkers" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.dakl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.dakl" />
-      <option name="MAIN_CLASS_NAME" value="com.dakl.TeamTests" />
-      <option name="METHOD_NAME" value="TestInit" />
+      <option name="MAIN_CLASS_NAME" value="com.dakl.Tests" />
+      <option name="METHOD_NAME" value="testRestrictedMoveModeY" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,12 +132,24 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.TeamTests.GetPieceIdsFromRoster" />
-        <item itemvalue="JUnit.TeamTests.TestInit" />
-        <item itemvalue="JUnit.CheckerboardTests.PiecesAreEqual" />
-        <item itemvalue="JUnit.CheckerboardTests.createPiece" />
+        <item itemvalue="JUnit.Tests" />
+        <item itemvalue="JUnit.Tests.testRestrictedMoveModeN" />
+        <item itemvalue="JUnit.Tests.testRestrictedMoveModeY" />
+        <item itemvalue="JUnit.Tests.testRestrictedMoveMode" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -281,11 +283,74 @@
     <MESSAGE value="Added idea files" />
     <option name="LAST_COMMIT_MESSAGE" value="Added idea files" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="453" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577663521882">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="453" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577663521882" />
+    <state x="170" y="134" width="1650" height="846" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1577674487066">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="170" y="134" width="1650" height="846" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577674487066" />
+    <state x="840" y="449" width="299" height="210" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1577663556416">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="840" y="449" width="299" height="210" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577663556416" />
+    <state width="925" height="527" key="GridCell.Tab.0.bottom" timestamp="1577678969313">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="925" height="527" key="GridCell.Tab.0.bottom/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
+    <state width="925" height="527" key="GridCell.Tab.0.center" timestamp="1577678969313">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="925" height="527" key="GridCell.Tab.0.center/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
+    <state width="925" height="527" key="GridCell.Tab.0.left" timestamp="1577678969313">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="925" height="527" key="GridCell.Tab.0.left/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
+    <state width="925" height="527" key="GridCell.Tab.0.right" timestamp="1577678969313">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="925" height="527" key="GridCell.Tab.0.right/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678969313" />
+    <state width="1850" height="373" key="GridCell.Tab.1.bottom" timestamp="1577678797298">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1850" height="373" key="GridCell.Tab.1.bottom/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797298" />
+    <state width="1850" height="373" key="GridCell.Tab.1.center" timestamp="1577678797298">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1850" height="373" key="GridCell.Tab.1.center/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797298" />
+    <state width="1850" height="373" key="GridCell.Tab.1.left" timestamp="1577678797297">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1850" height="373" key="GridCell.Tab.1.left/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797297" />
+    <state width="1850" height="373" key="GridCell.Tab.1.right" timestamp="1577678797298">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1850" height="373" key="GridCell.Tab.1.right/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577678797298" />
+    <state x="635" y="129" width="719" height="855" key="find.popup" timestamp="1577671924726">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="635" y="129" width="719" height="855" key="find.popup/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577671924726" />
+    <state x="658" y="264" width="672" height="678" key="search.everywhere.popup" timestamp="1577666878698">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="658" y="264" width="672" height="678" key="search.everywhere.popup/70.34.1850.1046/1920.0.1920.1080@70.34.1850.1046" timestamp="1577666878698" />
+  </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dakl/Main.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
-      <configuration name="Application">
-        <watch expression="game.getPieceTeam(valid_pc_loc.pc)" language="JAVA" />
-        <watch expression="restricted_jumps" language="JAVA" />
+      <configuration name="JUnit">
+        <watch expression="b.getBoardSpace(Main.parseSpace(&quot;C4R5&quot;))" language="JAVA" />
+        <watch expression="start_location" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
