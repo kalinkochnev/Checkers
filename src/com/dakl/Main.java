@@ -362,6 +362,7 @@ class CheckerBoard {
         return getLocation(found);
     }
 
+    // REVIEW : method naming
     ArrayList<Piece> getAll() {
         ArrayList<Piece> all_pieces = new ArrayList<>();
         all_pieces.addAll(red.roster);
@@ -425,6 +426,7 @@ class CheckerBoard {
         num_turns = 1;
     }
 
+    // REVIEW : method naming convention
     public static Space[] ArrayListToArray(ArrayList<Space> list) {
         Space[] arr = new Space[list.size()];
         for (int i = 0; i < arr.length; i++) {

@@ -1,5 +1,6 @@
 package com.dakl;
 
+// REVIEW : separate test classes into a different source root
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,7 @@ public class Tests {
         b.displayBoard();
         b = CheckerBoard.blankBoard();
     }
+    // REVIEW : code duplication ? 
     void threeByThree(Team center_team, Team[] surrounding, Space center, boolean isKing) {
         Piece center_piece = center_team.roster.get(11);
         if (isKing) {
@@ -43,7 +45,8 @@ public class Tests {
         }
     }
 
-
+    // REVIEW : javadoc comments to explain the purpose if needed
+    
     //Check that it parses space correctly
     //Checks that the piece is in bounds
     //Checks if there is a piece of the same team in the same spot
