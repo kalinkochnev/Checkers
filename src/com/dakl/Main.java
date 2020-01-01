@@ -2,7 +2,6 @@ package com.dakl;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class Main {
 
@@ -17,9 +16,12 @@ public class Main {
 
         CheckerBoard game = CheckerBoard.blankBoard();
 
+        // REVIEW : Setup method
         Space start_loc = game.getBoardSpace(Main.parseSpace("C4R5"));
         Team r = game.red;
+        // REVIEW : calling static methods
         Main.threeByThree(game.black, new Team[] {r, r, r, r}, start_loc, true, game);
+        // REVIEW : using public members
         game.getBoardSpace(("C5R2")).pc = game.red.roster.get(9);
 
         game.displayBoard();
@@ -62,6 +64,7 @@ public class Main {
         System.out.println(output);
     }
 
+    // REVIEW : javadocs to explain "why" 
     static void threeByThree(Team center_team, Team[] surrounding, Space center, boolean isKing, CheckerBoard b) {
         Piece center_piece = center_team.roster.get(11);
         if (isKing) {
@@ -92,6 +95,7 @@ public class Main {
     public static boolean inputIsValid(CheckerBoard game, String input) {
         String[] command = input.split(" ");
 
+        // REVIEW : Variable java naming convention
         Space unvalidated_pc_loc = null;
         Space unvalidated_end_space = null;
 
@@ -99,6 +103,7 @@ public class Main {
             unvalidated_pc_loc = parseSpace(command[0]);
             unvalidated_end_space = parseSpace(command[2]);
         } catch (Exception a) {
+            // REVIEW : Catching specific exceptions
             System.out.println(a.getMessage() + ". The input you entered is not parsable, please try again!");
             return false;
         }
@@ -195,7 +200,9 @@ public class Main {
     }
 }
 
+// REVIEW : separate files for classes
 class CheckerBoard {
+    // REVIEW: member variables
     Space[][] board;
     Team red;
     Team black;
@@ -238,6 +245,7 @@ class CheckerBoard {
         return new CheckerBoard(board, red, black);
     }
 
+    // REVIEW : good usage of static methods
     static CheckerBoard blankBoard() {
         Space[][] board = new Space[8][8];
         for (int row = 0; row < board.length; row++) {
@@ -354,6 +362,7 @@ class CheckerBoard {
         return getLocation(found);
     }
 
+    // REVIEW : method naming
     ArrayList<Piece> getAll() {
         ArrayList<Piece> all_pieces = new ArrayList<>();
         all_pieces.addAll(red.roster);
@@ -417,6 +426,7 @@ class CheckerBoard {
         num_turns = 1;
     }
 
+    // REVIEW : method naming convention
     public static Space[] ArrayListToArray(ArrayList<Space> list) {
         Space[] arr = new Space[list.size()];
         for (int i = 0; i < arr.length; i++) {
